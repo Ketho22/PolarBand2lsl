@@ -1,3 +1,4 @@
+import time
 from pylsl import StreamInfo, StreamOutlet
 import asyncio
 import aioconsole 
@@ -79,7 +80,7 @@ def data_conv(sender, data: bytearray):
         while offset < len(samples):
             ecg = convert_array_to_signed_int(samples, offset, step)
             offset += step
-            OUTLET.push_sample([ecg])
+            OUTLET.push_sample([ecg], time.time())
             
 
 def convert_array_to_signed_int(data, offset, length):
@@ -150,7 +151,7 @@ if __name__ == "__main__":
         sys.exit(2)
     # Defaults:
     STREAMNAME = 'PolarBand'
-    ADDRESS = "C7:4C:DA:51:37:51"
+    ADDRESS = "D8:A2:34:68:3F:65"
     #ADDRESS = "C9:09:F1:4C:AA:4D"
     
     for opt, arg in opts:
